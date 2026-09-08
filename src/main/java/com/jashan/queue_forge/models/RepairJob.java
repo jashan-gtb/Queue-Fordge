@@ -1,5 +1,4 @@
 package com.jashan.queue_forge.models;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -25,5 +24,6 @@ public class RepairJob {
     @OneToOne 
     @JoinColumn (name="Assigned_Technician_id")
     private Technicians technician;
+
 
 }

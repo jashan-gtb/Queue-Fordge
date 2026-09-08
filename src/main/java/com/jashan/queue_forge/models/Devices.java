@@ -19,6 +19,7 @@ public class Devices {
     @Id
     private Integer deviceId;
     private String deviceName;
+    private String deviceType;
     
     @ManyToOne 
     @JoinTable (
@@ -33,12 +34,10 @@ public class Devices {
    
     private Customers customer;
 
-    @OneToOne 
-    @JoinColumn (name ="Assigned_Technician_id")
-    private Technicians technician;
 
     @OneToOne 
     @JoinColumn (name = "Repair_job_id")
     private RepairJob repairJob;
+
 
 }

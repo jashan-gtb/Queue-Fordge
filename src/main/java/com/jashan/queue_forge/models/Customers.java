@@ -26,4 +26,6 @@ public class Customers {
 
     @OneToMany(mappedBy = "customer")
     private List<Devices> devices;
+
+    
 }

@@ -23,12 +23,6 @@ public class Technicians {
     private String technicianName;
 
     @OneToOne 
-    @JoinColumn (
-        name = "Assigned_device_Id"
-    )
-    private Devices device;
-
-    @OneToOne 
     @JoinColumn (name = "Repair_job_id")
     private  RepairJob job;
 
