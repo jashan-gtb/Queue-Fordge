@@ -4,8 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.jashan.queue_forge.Repository.DeviceRepository;
 import com.jashan.queue_forge.Repository.RepairJobRepository;
-import com.jashan.queue_forge.dto.CreateRepairJobRequest;
-import com.jashan.queue_forge.enums.Priority;
+import com.jashan.queue_forge.dto.CreateRepairJobRequest; 
 import com.jashan.queue_forge.models.Devices;
 import com.jashan.queue_forge.models.RepairJob;
 
