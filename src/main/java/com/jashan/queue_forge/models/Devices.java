@@ -1,6 +1,8 @@
 package com.jashan.queue_forge.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -17,6 +19,7 @@ import lombok.NoArgsConstructor;
 public class Devices {
     
     @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Integer deviceId;
     private String deviceName;
     private String deviceType;

@@ -1,5 +1,7 @@
 package com.jashan.queue_forge.models;
 
+import com.jashan.queue_forge.enums.TechnicianStatus;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +23,7 @@ public class Technicians {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer technicianId;
     private String technicianName;
+    private TechnicianStatus technicianStatus;
 
     @OneToOne 
     @JoinColumn (name = "Repair_job_id")
