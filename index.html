@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queue Forge - Add Repair Job</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .form-container {
+            background-color: white;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: bold;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #statusMessage {
+            margin-top: 15px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>New Repair Job</h2>
+        <form id="repairJobForm">
+            <div class="form-group">
+                <label for="customer">Customer Name:</label>
+                <input type="text" id="customer" name="customer" placeholder="e.g. Nan" required>
+            </div>
+
+            <div class="form-group">
+                <label for="device">Device:</label>
+                <input type="text" id="device" name="device" placeholder="e.g. Mobile" required>
+            </div>
+
+            <div class="form-group">
+                <label for="deviceCompany">Device Company:</label>
+                <input type="text" id="deviceCompany" name="deviceCompany" placeholder="e.g. Samsung" required>
+            </div>
+
+            <div class="form-group">
+                <label for="problem">Problem:</label>
+                <input type="text" id="problem" name="problem" placeholder="e.g. broken screen" required>
+            </div>
+
+            <div class="form-group">
+                <label for="priority">Priority:</label>
+                <select id="priority" name="priority">
+                    <option value="URGENT">URGENT</option>
+                    <option value="HIGH">HIGH</option>
+                    <option value="NORMAL">NORMAL</option>
+                    <option value="LOW" selected>LOW</option>
+                </select>
+            </div>
+
+            <button type="submit">Add Job</button>
+        </form>
+
+        <div id="statusMessage"></div>
+    </div>
+
+    <script>
+        // Listen for the form submission
+        document.getElementById('repairJobForm').addEventListener('submit', function(event) {
+            // Prevent the default form submission which reloads the page
+            event.preventDefault();
+
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.innerText = "Sending...";
+            statusMessage.style.color = "black";
+
+            // Gather the data from the input fields
+            const formData = {
+                customer: document.getElementById('customer').value,
+                device: document.getElementById('device').value,
+                deviceCompany: document.getElementById('deviceCompany').value,
+                problem: document.getElementById('problem').value,
+                priority: document.getElementById('priority').value
+            };
+
+            // Connect to your backend using the Fetch API
+            fetch('http://localhost:8080/repair-jobs', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json' // Matches your .http file
+                },
+                body: JSON.stringify(formData) // Converts the JS object to a JSON string
+            })
+            .then(response => {
+                if (response.ok) {
+                    statusMessage.innerText = 'Job submitted successfully!';
+                    statusMessage.style.color = 'green';
+                    document.getElementById('repairJobForm').reset(); // Clear form
+                } else {
+                    statusMessage.innerText = 'Failed to submit. Status: ' + response.status;
+                    statusMessage.style.color = 'red';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                statusMessage.innerText = 'Network error. Is your backend running?';
+                statusMessage.style.color = 'red';
+            });
+        });
+    </script>
+
+</body>
+</html>
