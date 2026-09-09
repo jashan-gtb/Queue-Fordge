@@ -40,8 +40,8 @@ public class RepairJobService {
 
         //Map and save device
         Devices devices=new Devices();
-        devices.setDeviceName(dto.device());
-        devices.setDeviceType(dto.deviceCompany());
+        devices.setDeviceName(dto.deviceCompany());
+        devices.setDeviceType(dto.device());
         devices.setCustomer(customers);
     
 
@@ -51,6 +51,7 @@ public class RepairJobService {
         repairJob.setJobName(dto.problem());
         repairJob.setPriority(dto.priority());
         repairJob.setDevice(devices);
+        repairJob.setRepairStatus(RepairStatus.PENDING);
         
         devices.setRepairJob(repairJob);
         devices=deviceRepository.save(devices);
