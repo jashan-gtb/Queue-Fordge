@@ -14,6 +14,7 @@ import com.jashan.queue_forge.models.Technicians;
 import com.jashan.queue_forge.worker.TechnicianWorker;
 import com.jashan.queue_forge.worker.WorkshopConfig;
 
+
 @Service 
 public class WorkshopService {
 
@@ -40,7 +41,7 @@ public class WorkshopService {
         }
     }
 
-    public RepairJob claimNextJob(Technicians technicians){
+    public synchronized RepairJob claimNextJob(Technicians technicians){
 
         List<RepairJob> repairJobs= repairJobRepository.findByRepairStatusOrderByPriorityDesc(RepairStatus.PENDING);
 
