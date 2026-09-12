@@ -1,11 +1,13 @@
 package com.jashan.queue_forge.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
@@ -25,7 +27,7 @@ public class Devices {
     private String deviceType;
     
     @ManyToOne 
-    @JoinTable (
+   /* @JoinTable (
         name = "customer_device",
         joinColumns ={
             @JoinColumn(name = "Customer_id")
@@ -33,8 +35,10 @@ public class Devices {
         inverseJoinColumns = {
             @JoinColumn (name="Device_id")
         }
-        )
-   
+        )*/
+
+    @JoinColumn (name = "Customer_id")
+    @JsonIgnoreProperties ("devices")
     private Customers customer;
 
 

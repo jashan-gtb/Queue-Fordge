@@ -61,7 +61,7 @@ public class WorkshopService {
     public void processJob(RepairJob repairJob, Technicians technician){
 
         Random random= new Random();
-        int time=random.nextInt(5000, 10000);
+        int time=random.nextInt(10000, 15000);
 
         repairJob.setRepairStatus(RepairStatus.IN_PROGRESS);
 
@@ -79,12 +79,6 @@ public class WorkshopService {
 
         technician.setTechnicianStatus(TechnicianStatus.AVAILABLE);
         technicianRepository.save(technician);
-
-        
-
-    }
-
-   
-    
+    }  
 
 }

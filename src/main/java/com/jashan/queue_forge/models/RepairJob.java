@@ -1,4 +1,5 @@
 package com.jashan.queue_forge.models;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.jashan.queue_forge.enums.Priority;
 import com.jashan.queue_forge.enums.RepairStatus;
 
@@ -32,6 +33,7 @@ public class RepairJob {
     
     @OneToOne 
     @JoinColumn (name = "Device_id")
+    @JsonIgnoreProperties("repairJob") 
     private Devices device;
 
     @ManyToOne
