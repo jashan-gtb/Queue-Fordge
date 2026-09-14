@@ -1,0 +1,8 @@
+spring.security.outh2.client:
+  registration:
+    google:
+      client-id:hfrhp3hrphvw
+      client-secret:i3rhiuh5gg24
+    github:
+      client-id:nphp34ht
+      client-secret:fhp3hgo2ihgpog
