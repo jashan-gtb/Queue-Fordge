@@ -3,16 +3,22 @@ package com.jashan.queue_forge.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration 
 public class ApplicationSecurityConfig {
+
+    private final JwtAuthFilter jwtAuthFilter;
+
+    ApplicationSecurityConfig(JwtAuthFilter jwtAuthFilter) {
+        this.jwtAuthFilter = jwtAuthFilter;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
@@ -24,9 +30,11 @@ public class ApplicationSecurityConfig {
             .requestMatchers("/technician/**").permitAll()
             .requestMatchers("/auth/**").permitAll()
             .requestMatchers("/error").permitAll()
-            .requestMatchers("/customer/**").hasAnyRole("technician","admin")
-            //.requestMatchers("/customer/**").authenticated()  //This defines that requests are authenticated
-        );
+           // .requestMatchers("/customer/**").hasAnyRole("technician","admin")
+            .requestMatchers("/customer/**").authenticated()  //This defines that requests are authenticated
+            .anyRequest().authenticated()
+        )
+            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class); // adds our filter
          //   .formLogin(Customizer.withDefaults())  
          //form login provided default form, but now we want our custom form
 

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.jashan.queue_forge.models.Users;
 
-
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
@@ -38,4 +38,16 @@ public class AuthUtill {
         .compact();
     }
 
+    //parsing token to retrive info
+
+    public String getUserNameFromToken(String token){
+        //stores token information
+        Claims claims= Jwts.parser()
+                        .verifyWith(getSecretkey())
+                        .build()
+                        .parseSignedClaims(token)
+                        .getPayload();
+        
+        return claims.getSubject();
+    }
 }

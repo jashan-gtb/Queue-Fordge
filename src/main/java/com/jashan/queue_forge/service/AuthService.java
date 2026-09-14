@@ -35,7 +35,7 @@ public class AuthService {
 
     public LoginResponseDto login(LoginRequestDto loginRequestDto){
 
-        Authentication authentication= authenticationManager.authenticate(
+        Authentication authentication= authenticationManager.authenticate( // authenticate automatically calls customisedUserDetailService
                 new UsernamePasswordAuthenticationToken(loginRequestDto.userName(),loginRequestDto.userPass()) );
 
         Users user= (Users)authentication.getPrincipal();

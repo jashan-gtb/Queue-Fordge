@@ -35,4 +35,5 @@ build/
 request.http
 mvnw
 mvnw.cmd
+/META-INF/
 
