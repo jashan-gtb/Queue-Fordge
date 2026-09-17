@@ -1,5 +1,6 @@
 package com.jashan.queue_forge.Repository;
 
+import com.jashan.queue_forge.enums.ProviderType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.jashan.queue_forge.models.Users;
@@ -10,4 +11,5 @@ public interface UserRepository extends JpaRepository<Users, Integer> {
 
     Optional<Users> findByUserName(String username);
 
+    Optional<Users> findByProviderIdAndProviderType(String providerId, ProviderType providerType);
 }

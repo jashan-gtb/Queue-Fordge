@@ -1,8 +1,11 @@
-spring.security.outh2.client:
-  registration:
-    google:
-      client-id:hfrhp3hrphvw
-      client-secret:i3rhiuh5gg24
-    github:
-      client-id:nphp34ht
-      client-secret:fhp3hgo2ihgpog
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_ID}
+            client-secret: ${GOOGLE_SECRET}
+          github:
+            client-id: your-github-client-id
+            client-secret: your-github-client-secret

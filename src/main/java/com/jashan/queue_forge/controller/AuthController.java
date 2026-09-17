@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jashan.queue_forge.dto.LoginRequestDto;
 import com.jashan.queue_forge.dto.LoginResponseDto;
 import com.jashan.queue_forge.dto.SignupResponseDto;
-import com.jashan.queue_forge.service.AuthService;
+import com.jashan.queue_forge.security.AuthService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

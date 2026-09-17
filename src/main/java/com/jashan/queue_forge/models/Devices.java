@@ -8,13 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 public class Devices {
     
@@ -44,5 +38,69 @@ public class Devices {
     @JoinColumn (name = "Repair_job_id")
     private RepairJob repairJob;
 
+
+    public Integer getDeviceId() {
+        return deviceId;
+    }
+
+
+    public void setDeviceId(Integer deviceId) {
+        this.deviceId = deviceId;
+    }
+
+
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
+
+
+    public String getDeviceType() {
+        return deviceType;
+    }
+
+
+    public void setDeviceType(String deviceType) {
+        this.deviceType = deviceType;
+    }
+
+
+    public Customers getCustomer() {
+        return customer;
+    }
+
+
+    public void setCustomer(Customers customer) {
+        this.customer = customer;
+    }
+
+
+    public RepairJob getRepairJob() {
+        return repairJob;
+    }
+
+
+    public void setRepairJob(RepairJob repairJob) {
+        this.repairJob = repairJob;
+    }
+
+
+    public Devices(Integer deviceId, String deviceName, String deviceType, Customers customer, RepairJob repairJob) {
+        this.deviceId = deviceId;
+        this.deviceName = deviceName;
+        this.deviceType = deviceType;
+        this.customer = customer;
+        this.repairJob = repairJob;
+    }
+
+
+    public Devices() {
+    }
+
+    
 
 }

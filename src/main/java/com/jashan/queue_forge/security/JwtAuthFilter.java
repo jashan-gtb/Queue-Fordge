@@ -1,6 +1,9 @@
 package com.jashan.queue_forge.security;
 
 import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,19 +17,20 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
 
 // after authentication, Filters job is to fill SecurityContextHolder
 
 @Component 
-@Slf4j //simple login framework for java
+//@Slf4j //simple login framework for java
 public class JwtAuthFilter extends OncePerRequestFilter {  // filter comes before servlet and Interceptors comes before controller
 
     private final AuthUtill authUtill;
     private final UserRepository userRepository;
     private final HandlerExceptionResolver handlerExceptionResolver;
+    private static final Logger log = LoggerFactory.getLogger(JwtAuthFilter.class);
 
     JwtAuthFilter(AuthUtill authUtill, UserRepository userRepository,HandlerExceptionResolver handlerExceptionResolver){
         this.handlerExceptionResolver=handlerExceptionResolver;

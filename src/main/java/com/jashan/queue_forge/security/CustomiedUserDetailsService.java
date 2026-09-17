@@ -7,13 +7,16 @@ import org.springframework.stereotype.Service;
 
 import com.jashan.queue_forge.Repository.UserRepository;
 
-import lombok.RequiredArgsConstructor;
 
 @Service 
-@RequiredArgsConstructor 
+
 public class CustomiedUserDetailsService implements UserDetailsService{
 
     private final UserRepository userRepository;
+
+    CustomiedUserDetailsService(UserRepository userRepository){
+        this.userRepository=userRepository;
+    }
 
     @Override // for imitating InMemoryUserDetailsManager
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
