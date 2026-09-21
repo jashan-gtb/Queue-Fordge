@@ -8,8 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
-
 import jakarta.persistence.OneToMany;
 
 
@@ -26,6 +24,7 @@ public class Customers {
     @JsonIgnore // for hard ignoring connected fields
     //@JsonManagedReference // it provides clean json response rather than looping in bi directional mapping
     private List<Devices> devices;
+
 
     public Integer getCustomer_id() {
         return customer_id;
@@ -50,6 +49,9 @@ public class Customers {
     public void setDevices(List<Devices> devices) {
         this.devices = devices;
     }
+    
+
+   
 
     public Customers(Integer customer_id, String customer_name, List<Devices> devices) {
         this.customer_id = customer_id;
@@ -60,5 +62,6 @@ public class Customers {
     public Customers() {
     }
 
+  
     
 }

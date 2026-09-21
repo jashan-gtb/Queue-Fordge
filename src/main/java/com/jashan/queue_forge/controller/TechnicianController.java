@@ -26,13 +26,13 @@ public class TechnicianController {
         this.technicianRepository=technicianRepository;
     }
 
-    @GetMapping("")
+    @GetMapping("/view")
     public List<Technicians> findAll(){
 
         return technicianRepository.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/view/{id}")
     public Technicians findTechById(@PathVariable Integer id) {
         return technicianRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     

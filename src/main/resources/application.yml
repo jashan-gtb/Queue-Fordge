@@ -1,11 +1,15 @@
 spring:
+  # Spring Boot does not load .env files by default. Treat it as a properties file
+  # for local development; deployment environments should supply real env vars.
+  config:
+    import: optional:file:.env[.properties]
   security:
     oauth2:
       client:
         registration:
           google:
-            client-id: ${GOOGLE_ID}
-            client-secret: ${GOOGLE_SECRET}
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
           github:
-            client-id: your-github-client-id
-            client-secret: your-github-client-secret
+            client-id: ${GITHUB_CLIENT_ID}
+            client-secret: ${GITHUB_CLIENT_SECRET}

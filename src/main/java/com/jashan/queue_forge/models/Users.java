@@ -1,14 +1,14 @@
 package com.jashan.queue_forge.models;
 import java.util.Collection;
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 import com.jashan.queue_forge.enums.ProviderType;
+import com.jashan.queue_forge.enums.RoleType;
 import jakarta.persistence.*;
-
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
-
 
 
 
@@ -26,10 +26,16 @@ public class Users implements UserDetails {
     @Enumerated(EnumType.STRING)
     private ProviderType providerType;
 
+    @ElementCollection(fetch = FetchType.EAGER) // tells springboot to create a table of roles
+    @Enumerated(EnumType.STRING)
+    Set<RoleType> roles= new HashSet<>();
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority("Role_"+ role.name()))
+                .collect(Collectors.toSet());
     }
     @Override
     public String getUsername() {
@@ -67,7 +73,24 @@ public class Users implements UserDetails {
     public void setProviderType(ProviderType providerType) {
         this.providerType = providerType;
     }
-
+    public Set<RoleType> getRoles() {
+        return roles;
+    }
+    public void setRoles(Set<RoleType> roles) {
+        this.roles = roles;
+    }
+    public Users(Integer userId, String userName, String password, String providerId, ProviderType providerType,
+            Set<RoleType> roles) {
+        this.userId = userId;
+        this.userName = userName;
+        this.password = password;
+        this.providerId = providerId;
+        this.providerType = providerType;
+        this.roles = roles;
+    }
+    public Users() {
+    }
+    
     
 
 }

@@ -1,7 +1,14 @@
 package com.jashan.queue_forge.security;
 
+import com.jashan.queue_forge.Repository.TechnicianRepository;
 import com.jashan.queue_forge.enums.ProviderType;
+import com.jashan.queue_forge.enums.RoleType;
+import com.jashan.queue_forge.enums.TechnicianStatus;
+
 import jakarta.transaction.Transactional;
+
+import java.util.Set;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,12 +21,14 @@ import com.jashan.queue_forge.Repository.UserRepository;
 import com.jashan.queue_forge.dto.LoginRequestDto;
 import com.jashan.queue_forge.dto.LoginResponseDto;
 import com.jashan.queue_forge.dto.SignupResponseDto;
+import com.jashan.queue_forge.models.Technicians;
 import com.jashan.queue_forge.models.Users;
 
 
 @Service
 public class AuthService {
 
+    private final TechnicianRepository technicianRepository;
     private final AuthenticationManager authenticationManager;
     private final AuthUtill authUtill;
     private final UserRepository userRepository;
@@ -28,12 +37,13 @@ public class AuthService {
     AuthService(AuthenticationManager authenticationManager,
                 AuthUtill authUtill,
                 UserRepository userRepository,
-                PasswordEncoder passwordEncoder
+                PasswordEncoder passwordEncoder, TechnicianRepository technicianRepository
     ){
         this.authUtill=authUtill;
         this.authenticationManager=authenticationManager;
         this.userRepository=userRepository;
         this.passwordEncoder=passwordEncoder;
+        this.technicianRepository = technicianRepository;
     }
 
     public LoginResponseDto login(LoginRequestDto loginRequestDto){
@@ -58,12 +68,21 @@ public class AuthService {
         user.setUserName(signupRequestDto.userName());
         user.setProviderId(providerId);
         user.setProviderType(providerType);
-        
+        user.setRoles(Set.of(RoleType.TECHNICIAN));
         
         if (providerType==ProviderType.EMAIL){
             user.setPassword(passwordEncoder.encode(signupRequestDto.userPass()));
         }
-        return userRepository.save(user);
+        user=userRepository.save(user);
+
+        Technicians technician= new Technicians();
+        technician.setTechnicianName(signupRequestDto.userName());
+        technician.setTechnicianStatus(TechnicianStatus.AVAILABLE);
+        technician.setUser(user);
+    
+        technicianRepository.save(technician);
+
+        return user;
 
     }
     //controller

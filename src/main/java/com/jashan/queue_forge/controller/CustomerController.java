@@ -27,13 +27,13 @@ public class CustomerController {
         this.customerRepository=customerRepository;
     }
 
-    @GetMapping("")
+    @GetMapping("/view")
     public List<Customers> findAll(){
 
         return customerRepository.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/view/{id}")
     public Customers findById(@PathVariable Integer id) {
         return customerRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     
